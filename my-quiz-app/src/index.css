@@ -76,6 +76,13 @@ button:focus-visible {
 
 h1 {
   font-size: 24px; /* Increase font size for better readability */
+  font-family: "JIKPGC Tahoma", Arial, sans-serif;
+
+}
+
+p {
+  font-family: "JIKPGC Tahoma", Arial, sans-serif;
+
 }
 
 /* Increase the size of radio buttons and labels for touch-friendly interaction */
