@@ -71,12 +71,12 @@ button:focus-visible {
  /* Font Family JIKPGC+Tahoma ... (Your font-face styles) */
 
  body {
-  font-family: "JIKPGC Tahoma", Arial, sans-serif;
+  font-family: "JIKPGC-Tahoma", Arial, sans-serif;
 }
 
 h1 {
   font-size: 24px; /* Increase font size for better readability */
-  font-family: "JIKPGC Tahoma", Arial, sans-serif;
+  font-family: "JIKPGC-Tahoma", Arial, sans-serif;
 
 }
 
