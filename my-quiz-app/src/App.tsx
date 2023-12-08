@@ -1,11 +1,30 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import React, {useEffect, useState } from "react";
 import "./App.css";
 import "./fonts.css";
 
 function App() {
   const [count, setCount] = useState(0);
+
+  async function fetchQuizData() {
+    try {
+      const response = await fetch('http://38.242.141.80:3001/quiz'); // Replace with your server's IP and the correct port
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error('Fetching quiz data failed:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchQuizData().then(data => {
+      console.log(data); // Do something with the quiz data
+    });
+  }, []);
+  
 
   return (
     <>
