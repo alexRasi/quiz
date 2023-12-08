@@ -83,3 +83,10 @@ Now you can run your script with:
 bash
 Copy code
 ./deploy.sh
+
+-------------------------------------------
+To discard all your local changes in a Git repository via terminal, you can use the following command:
+
+bash
+Copy code
+git reset --hard HEAD
