@@ -90,3 +90,29 @@ To discard all your local changes in a Git repository via terminal, you can use 
 bash
 Copy code
 git reset --hard HEAD
+
+---------------------------------
+
+To run your Node.js app in the background without locking the terminal and then find the process ID (PID) to kill it later, you can use the following methods:
+
+Run in Background and Get PID:
+Using & to Run in Background:
+
+Start your Node app with & at the end to run it in the background:
+bash
+Copy code
+node app.js &
+After running this command, you'll see a job number and a PID.
+Find the PID:
+
+If you didn’t note the PID, you can find it using ps:
+bash
+Copy code
+ps aux | grep 'node'
+This command lists all running Node processes. Locate your app and note the PID.
+Killing the Process:
+When you want to stop the app, use the kill command followed by the PID:
+bash
+Copy code
+kill [PID]
+Replace [PID] with the actual process ID of your Node app.
