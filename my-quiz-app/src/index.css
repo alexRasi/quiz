@@ -1,3 +1,4 @@
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -66,3 +67,29 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+ /* Font Family JIKPGC+Tahoma ... (Your font-face styles) */
+
+ body {
+  font-family: "JIKPGC Tahoma", Arial, sans-serif;
+}
+
+h1 {
+  font-size: 24px; /* Increase font size for better readability */
+}
+
+/* Increase the size of radio buttons and labels for touch-friendly interaction */
+input[type="radio"] {
+  width: 30px;
+  height: 30px;
+}
+
+label {
+  font-size: 18px; /* Increase label font size for better readability */
+}
+
+form {
+  margin: 20px 0; /* Add some margin for spacing */
+}
+
+/* Add more CSS styles as needed for your layout */

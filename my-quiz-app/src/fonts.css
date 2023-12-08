@@ -1,0 +1,60 @@
+@font-face {
+  font-family: "JIKOEB-Calibri";
+  src: url("./fonts/JIKOEB-Calibri.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "JIKOFC-Calibri";
+  src: url("./fonts/JIKOFC-Calibri.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "JIKOGC-Arial";
+  src: url("./fonts/JIKOGC-Arial.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "JIKOGD-Arial";
+  src: url("./fonts/JIKOGD-Arial.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "JIKOGE-ArialMT";
+  src: url("./fonts/JIKOGE-ArialMT.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "JIKOHF-ArialMT";
+  src: url("./fonts/JIKOHF-ArialMT.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "JIKPAD-Wingdings";
+  src: url("./fonts/JIKPAD-Wingdings.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "JIKPDD-SymbolMT";
+  src: url("./fonts/JIKPDD-SymbolMT.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "JIKPGC-Tahoma";
+  src: url("./fonts/JIKPGC-Tahoma.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "JIKPGD-Tahoma";
+  src: url("./fonts/JIKPGD-Tahoma.ttf") format("truetype");
+}
+
+/* Path: src/fonts.css */
+/* JIKOFC-Calibri */
+/* JIKOGC-Arial */
+/* JIKOGD-Arial */
+/* JIKOGE-ArialMT */
+/* JIKOHF-ArialMT */
+/* JIKPAD-Wingdings */
+/* JIKPDD-SymbolMT */
+/* JIKPGC-Tahoma */
+/* JIKPGD-Tahoma */
