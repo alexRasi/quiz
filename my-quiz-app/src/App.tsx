@@ -4,6 +4,7 @@ import "./fonts.css";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [object, setObject] = useState(undefined);
 
   async function fetchQuizData() {
     try {
@@ -26,6 +27,7 @@ function App() {
   useEffect(() => {
     fetchQuizData().then((data) => {
       console.log(data); // Do something with the quiz data
+      setObject(data)
     });
   }, []);
 
@@ -33,6 +35,7 @@ function App() {
     <>
       <h1>Ημερήσιων και Εσπερινών Γενικών Λυκείων</h1>
       <p>Τέλος 1ης από 4 σελίδες</p>
+      <p>{object}</p>
 
       <h2>Πανελλαδικές Εξετάσεις</h2>
       <p>Ημερήσιων & Εσπερινών Γενικών Λυκείων</p>
