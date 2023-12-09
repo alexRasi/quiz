@@ -9,7 +9,7 @@ function App() {
     try {
       // const response = await fetch('http://38.242.141.80:3001/quiz'); // Replace with your server's IP and the correct port
       const response = await fetch(
-        "https://vivacious-mesquite-bear.glitch.me/quizif"
+        "https://vivacious-mesquite-bear.glitch.me/quiz"
       ); // Replace with your server's IP and the correct port
 
       if (!response.ok) {
