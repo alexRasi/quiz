@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import "./fonts.css";
 
@@ -7,7 +7,11 @@ function App() {
 
   async function fetchQuizData() {
     try {
-      const response = await fetch('http://38.242.141.80:3001/quiz'); // Replace with your server's IP and the correct port
+      // const response = await fetch('http://38.242.141.80:3001/quiz'); // Replace with your server's IP and the correct port
+      const response = await fetch(
+        "https://vivacious-mesquite-bear.glitch.me/quizif"
+      ); // Replace with your server's IP and the correct port
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -15,22 +19,19 @@ function App() {
       console.log(data);
       return data;
     } catch (error) {
-      console.error('Fetching quiz data failed:', error);
+      console.error("Fetching quiz data failed:", error);
     }
   }
 
   useEffect(() => {
-    fetchQuizData().then(data => {
+    fetchQuizData().then((data) => {
       console.log(data); // Do something with the quiz data
     });
   }, []);
-  
 
   return (
     <>
-      <h1>
-        Ημερήσιων και Εσπερινών Γενικών Λυκείων
-      </h1>
+      <h1>Ημερήσιων και Εσπερινών Γενικών Λυκείων</h1>
       <p>Τέλος 1ης από 4 σελίδες</p>
 
       <h2>Πανελλαδικές Εξετάσεις</h2>
