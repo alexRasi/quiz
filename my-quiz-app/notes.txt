@@ -116,3 +116,9 @@ bash
 Copy code
 kill [PID]
 Replace [PID] with the actual process ID of your Node app.
+
+
+-----------------------
+in Debian:
+adduser username
+su - username to change to the user
