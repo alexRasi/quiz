@@ -4,7 +4,7 @@ import "./fonts.css";
 
 function App() {
   const [count, setCount] = useState(0);
-  const [object, setObject] = useState(undefined);
+  const [object, setObject] = useState({a: '9'});
 
   async function fetchQuizData() {
     try {
@@ -35,7 +35,7 @@ function App() {
     <>
       <h1>Ημερήσιων και Εσπερινών Γενικών Λυκείων</h1>
       <p>Τέλος 1ης από 4 σελίδες</p>
-      <p>{object}</p>
+      <p>{object.a}</p>
 
       <h2>Πανελλαδικές Εξετάσεις</h2>
       <p>Ημερήσιων & Εσπερινών Γενικών Λυκείων</p>
