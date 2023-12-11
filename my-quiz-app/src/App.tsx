@@ -10,7 +10,7 @@ function App() {
     try {
       // const response = await fetch('http://38.242.141.80:3000/quiz'); // Replace with your server's IP and the correct port
       const response = await fetch(
-        "http://38.242.141.80:3000/quiz"
+        "https://services.rasidev.com/quiz"
       ); // Replace with your server's IP and the correct port
 
       if (!response.ok) {
