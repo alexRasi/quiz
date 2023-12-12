@@ -40,8 +40,8 @@
 
 /* Score */
 .score {
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 16px;
+  margin-bottom: 8px;
 }
 
 /* Question container */
@@ -108,4 +108,8 @@
 
 .lightRedButton:hover {
   background-color: #D50000; /* A slightly darker shade for hover effect */
+}
+
+.timer {
+  margin-bottom: 0;
 }

@@ -21,11 +21,11 @@ const Quiz = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [questionResponse, setQuestionResponse] = useState<QuestionResponse>();
   const [questions, setQuestions] = useState<Question[]>();
-  const [isWaitingState, setIsWaitingState] =
-    useState(false); // [milliseconds
+  const [isWaitingState, setIsWaitingState] = useState(false); // [milliseconds
 
   const [correctAnswers, setCorrectAnswers] = useState(0); //
   const [selectedAnswer, setSelectedAnswer] = useState("");
+  const [lives, setLives] = useState(5);
 
   // get highscore from local storage
   const getHighScore = () => {
@@ -46,13 +46,13 @@ const Quiz = () => {
     if (correctAnswers > getHighScore()) {
       setHighScore(correctAnswers);
     }
-  }
+  };
 
   const handleAnswerClicked = (answer: string) => {
     if (!questions || time === 0) return;
     setSelectedAnswer(answer);
 
-    if(questionIndex === questions.length - 1) {
+    if (questionIndex === questions.length - 1) {
       checkAndUpdateHighScore();
       setTime(0);
       return;
@@ -64,9 +64,16 @@ const Quiz = () => {
 
       if (answer === questions[questionIndex].correctAnswer) {
         setCorrectAnswers(() => correctAnswers + 1);
+      } else {
+        setLives(lives - 1);
+        if (lives === 0) {
+          checkAndUpdateHighScore();
+          setTime(0);
+          return;
+        }
       }
     } else if (isWaitingState) {
-      if(questionIndex === questions.length - 1) {
+      if (questionIndex === questions.length - 1) {
         checkAndUpdateHighScore();
         setTime(0);
         return;
@@ -98,6 +105,24 @@ const Quiz = () => {
   const handleOnFinished = () => {
     console.log("finished");
     setTime(0);
+  };
+
+  const heartsDisplay = () => {
+    if (lives === 5) {
+      return <h4>♥♥♥♥♥♥</h4>;
+    } else if (lives === 4) {
+      return <h4>♥♥♥♥♥</h4>;
+    } else if (lives === 3) {
+      return <h4>♥♥♥♥</h4>;
+    } else if (lives === 2) {
+      return <h4>♥♥♥</h4>;
+    } else if (lives === 1) {
+      return <h4>♥♥</h4>;
+    } else if (lives === 0) {
+      return <h4>♥</h4>;
+    } else {
+      return <h4>GAME OVER</h4>;
+    }
   };
 
   useEffect(() => {
@@ -138,21 +163,25 @@ const Quiz = () => {
   }
 
   const quiz = (
-    <div className={styles.quizContainer} onClick={() => {
-      if(isWaitingState) {
-        setQuestionIndex(questionIndex + 1);
-        setIsWaitingState(false);
-        setTimerState(TimerState.PLAYING);
-      }
-
-    }}>
+    <div
+      className={styles.quizContainer}
+      onClick={() => {
+        if (isWaitingState) {
+          setQuestionIndex(questionIndex + 1);
+          setIsWaitingState(false);
+          setTimerState(TimerState.PLAYING);
+        }
+      }}
+    >
       <div className={styles.timer}>
-       { time !== 0 && <Timer
-          onFinished={handleOnFinished}
-          time={time}
-          timerState={timerState}
-        />}
-        { time === 0 && <h1>Time's up!</h1>}
+        {time !== 0 && (
+          <Timer
+            onFinished={handleOnFinished}
+            time={time}
+            timerState={timerState}
+          />
+        )}
+        {time === 0 && <h1>-</h1>}
       </div>
       {/* add a restart icon  */}
       <div className={styles.restart}>
@@ -163,11 +192,10 @@ const Quiz = () => {
             setCorrectAnswers(0);
             if (!questions) return;
             //shuffle questions
-            const shuffledQuestions = questions.sort(
-              () => Math.random() - 0.5
-            );
+            const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
             setQuestions(shuffledQuestions);
             setQuestionIndex(0);
+            setLives(5);
           }}
         >
           Restart
@@ -178,6 +206,8 @@ const Quiz = () => {
         <h4>Score: {correctAnswers}</h4>
         <h4>Tries: {questionIndex}</h4>
         <h4>Highscore: {getHighScore()}</h4>
+        {/* show dots instead of live numbers */}
+        {heartsDisplay()}
       </div>
       <div>
         {questions && (
