@@ -128,6 +128,13 @@ const Quiz = () => {
             setTime(20000);
             setTimerState(TimerState.RESTART);
             setCorrectAnswers(0);
+            if (!questions) return;
+            //shuffle questions
+            const shuffledQuestions = questions.sort(
+              () => Math.random() - 0.5
+            );
+            setQuestions(shuffledQuestions);
+            setQuestionIndex(0);
           }}
         >
           Restart
