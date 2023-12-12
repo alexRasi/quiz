@@ -19,25 +19,44 @@ const Quiz = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [questionResponse, setQuestionResponse] = useState<QuestionResponse>();
   const [questions, setQuestions] = useState<Question[]>();
+  const [isCorrectAnswerWaitingState, setIsCorrectAnswerWaitingState] =
+    useState(false); // [milliseconds
 
-  const contentClicked = () => {
-    // fetch the questions from server
+  const [correctAnswers, setCorrectAnswers] = useState(0); // 
 
-    if (time === 0) {
-      setTime(20000);
-      setTimerState(TimerState.RESTART);
-      return;
-    }
+  const handleAnswerClicked = (answer: string) => {
+    if (!questions) return;
 
-    if (timerState === TimerState.PAUSED) {
-      console.log("play");
-      setTimerState(TimerState.PLAYING);
-    } else if (timerState === TimerState.PLAYING) {
+    if (!isCorrectAnswerWaitingState) {
       setTimerState(TimerState.PAUSED);
-    } else if (timerState === TimerState.RESTART) {
+      setIsCorrectAnswerWaitingState(true);
+
+      if (answer === questions[questionIndex].correctAnswer) {
+        setCorrectAnswers(() => correctAnswers + 1);
+      }
+    } else if (isCorrectAnswerWaitingState) {
+      setQuestionIndex(questionIndex + 1);
+      setIsCorrectAnswerWaitingState(false);
       setTimerState(TimerState.PLAYING);
+    } else {
+      console.log("wrong");
     }
-    console.log("content clicked");
+
+    // if (time === 0) {
+    //   setTime(20000);
+    //   setTimerState(TimerState.RESTART);
+    //   return;
+    // }
+
+    // if (timerState === TimerState.PAUSED) {
+    //   console.log("play");
+    //   setTimerState(TimerState.PLAYING);
+    // } else if (timerState === TimerState.PLAYING) {
+    //   setTimerState(TimerState.PAUSED);
+    // } else if (timerState === TimerState.RESTART) {
+    //   setTimerState(TimerState.PLAYING);
+    // }
+    // console.log("content clicked");
   };
 
   const handleOnFinished = () => {
@@ -83,6 +102,7 @@ const Quiz = () => {
       setQuestionResponse(data);
       setQuestions(data.questions);
       console.log("aa", questions);
+      setTimerState(TimerState.PLAYING);
     });
   }, []);
 
@@ -96,24 +116,22 @@ const Quiz = () => {
         time={time}
         timerState={timerState}
       />
-      <div
-        className={styles.content}
-        onClick={() => {
-          contentClicked();
-        }}
-      >
+      <div className={styles.score}>
+        <h1>Score: {correctAnswers}</h1>
+      </div>
+      <div className={styles.content}>
         {questions && (
           <div>
             <h1>{questions[questionIndex].question}</h1>
             {questions[questionIndex].answers.map((answer, index) => (
-              <h2 key={index} onClick={() => {
-                if (answer === questions[questionIndex].correctAnswer) {
-                  setQuestionIndex(questionIndex + 1);
-                  console.log("correct");
-                } else {
-                  console.log("wrong");
-                }
-              }}>{answer}</h2>
+              <h2
+                key={index}
+                onClick={() => {
+                  handleAnswerClicked(answer);
+                }}
+              >
+                {answer}
+              </h2>
             ))}
           </div>
         )}
