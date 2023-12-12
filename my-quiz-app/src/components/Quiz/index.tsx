@@ -22,10 +22,10 @@ const Quiz = () => {
   const [isCorrectAnswerWaitingState, setIsCorrectAnswerWaitingState] =
     useState(false); // [milliseconds
 
-  const [correctAnswers, setCorrectAnswers] = useState(0); // 
+  const [correctAnswers, setCorrectAnswers] = useState(0); //
 
   const handleAnswerClicked = (answer: string) => {
-    if (!questions) return;
+    if (!questions || time === 0) return;
 
     if (!isCorrectAnswerWaitingState) {
       setTimerState(TimerState.PAUSED);
@@ -64,22 +64,6 @@ const Quiz = () => {
     setTime(0);
   };
 
-  async function fetchQuizData() {
-    try {
-      // const response = await fetch('http://38.242.141.80:3000/quiz'); // Replace with your server's IP and the correct port
-      const response = await fetch("https://services.rasidev.com/quiz"); // Replace with your server's IP and the correct port
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log(data);
-      return data;
-    } catch (error) {
-      console.error("Fetching quiz data failed:", error);
-    }
-  }
-
   useEffect(() => {
     async function fetchQuizData(): Promise<QuestionResponse> {
       try {
@@ -100,15 +84,72 @@ const Quiz = () => {
     fetchQuizData().then((data: QuestionResponse) => {
       console.log(data); // Do something with the quiz data
       setQuestionResponse(data);
-      setQuestions(data.questions);
+      // shuffle data.questions array
+      const shuffledQuestions = data.questions.sort(() => Math.random() - 0.5);
+      
+      setQuestions(shuffledQuestions);
       console.log("aa", questions);
       setTimerState(TimerState.PLAYING);
     });
   }, []);
 
+  const shuffle = (array: any[]) => {
+    array.sort(() => Math.random() - 0.5);
+  }
+
   if (questions) {
     console.log(questions[questionIndex]);
   }
+
+  const a = (
+    <div className={styles.quizContainer}>
+      <div className={styles.timer}>
+        <Timer
+          onFinished={handleOnFinished}
+          time={time}
+          timerState={timerState}
+        />
+      </div>
+      {/* add a restart icon  */}
+      <div className={styles.restart}>
+        <button
+          onClick={() => {
+            setTime(20000);
+            setTimerState(TimerState.RESTART);
+            setCorrectAnswers(0);
+          }}
+        >
+          Restart
+        </button>
+      </div>
+
+      <div className={styles.score}>
+        <h3>Score: {correctAnswers}</h3>
+      </div>
+      <div>
+        {questions && (
+          <div className={styles.questionContainer}>
+            <h1 className={styles.questionText}>
+              {questions[questionIndex].question}
+            </h1>
+            {questions[questionIndex].answers.map((answer, index) => (
+              <button
+                key={index}
+                className={styles.answerOption}
+                onClick={() => {
+                  handleAnswerClicked(answer);
+                }}
+              >
+                {answer}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+  return a;
+
   return (
     <div className={styles.quizContainer}>
       <Timer

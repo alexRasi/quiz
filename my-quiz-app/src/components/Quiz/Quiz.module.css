@@ -18,3 +18,63 @@
   align-items: center;
   justify-content: center;
 }
+
+
+
+/* chat gpt styling*/
+
+
+/* Quiz.module.css */
+
+/* Quiz container */
+.quizContainer {
+  text-align: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Timer */
+.timer {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Score */
+.score {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Question container */
+.questionContainer {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Question text */
+.questionText {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+/* Answer options */
+.answerOption {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #0074d9;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.answerOption:hover {
+  background-color: #0056b3;
+}
