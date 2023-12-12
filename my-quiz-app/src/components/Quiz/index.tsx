@@ -31,7 +31,7 @@ const Quiz = () => {
     <div className={styles.quizContainer}>
       <Timer onFinished={handleOnFinished} time={time} timerState={timerState}/>
       <h1>pangreeks</h1>
-       
+       develop
       <div className={styles.content} onClick={()=>{contentClicked()}}>content</div>
     </div>
   );
