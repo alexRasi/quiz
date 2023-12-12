@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Quiz.module.css";
 import Timer, { TimerState } from "../Timer";
+import clsx from "clsx";
+import { set } from "firebase/database";
 
 //make a question type with the answers and the correct answer
 export type QuestionResponse = {
@@ -19,24 +21,26 @@ const Quiz = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [questionResponse, setQuestionResponse] = useState<QuestionResponse>();
   const [questions, setQuestions] = useState<Question[]>();
-  const [isCorrectAnswerWaitingState, setIsCorrectAnswerWaitingState] =
+  const [isWaitingState, setIsWaitingState] =
     useState(false); // [milliseconds
 
   const [correctAnswers, setCorrectAnswers] = useState(0); //
+  const [selectedAnswer, setSelectedAnswer] = useState("");
 
   const handleAnswerClicked = (answer: string) => {
     if (!questions || time === 0) return;
+    setSelectedAnswer(answer);
 
-    if (!isCorrectAnswerWaitingState) {
+    if (!isWaitingState) {
       setTimerState(TimerState.PAUSED);
-      setIsCorrectAnswerWaitingState(true);
+      setIsWaitingState(true);
 
       if (answer === questions[questionIndex].correctAnswer) {
         setCorrectAnswers(() => correctAnswers + 1);
       }
-    } else if (isCorrectAnswerWaitingState) {
+    } else if (isWaitingState) {
       setQuestionIndex(questionIndex + 1);
-      setIsCorrectAnswerWaitingState(false);
+      setIsWaitingState(false);
       setTimerState(TimerState.PLAYING);
     } else {
       console.log("wrong");
@@ -86,7 +90,7 @@ const Quiz = () => {
       setQuestionResponse(data);
       // shuffle data.questions array
       const shuffledQuestions = data.questions.sort(() => Math.random() - 0.5);
-      
+
       setQuestions(shuffledQuestions);
       console.log("aa", questions);
       setTimerState(TimerState.PLAYING);
@@ -95,14 +99,21 @@ const Quiz = () => {
 
   const shuffle = (array: any[]) => {
     array.sort(() => Math.random() - 0.5);
-  }
+  };
 
   if (questions) {
     console.log(questions[questionIndex]);
   }
 
   const a = (
-    <div className={styles.quizContainer}>
+    <div className={styles.quizContainer} onClick={() => {
+      if(isWaitingState) {
+        setQuestionIndex(questionIndex + 1);
+        setIsWaitingState(false);
+        setTimerState(TimerState.PLAYING);
+      }
+
+    }}>
       <div className={styles.timer}>
         <Timer
           onFinished={handleOnFinished}
@@ -134,8 +145,17 @@ const Quiz = () => {
             </h1>
             {questions[questionIndex].answers.map((answer, index) => (
               <button
+                className={clsx({
+                  [styles.answerOption]: true,
+                  [styles.lightGreenButton]:
+                    isWaitingState &&
+                    answer === questions[questionIndex].correctAnswer,
+                  [styles.lightRedButton]:
+                    isWaitingState &&
+                    selectedAnswer === answer &&
+                    answer !== questions[questionIndex].correctAnswer,
+                })}
                 key={index}
-                className={styles.answerOption}
                 onClick={() => {
                   handleAnswerClicked(answer);
                 }}

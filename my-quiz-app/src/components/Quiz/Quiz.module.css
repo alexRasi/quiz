@@ -76,3 +76,36 @@
 .answerOption:hover {
   background-color: #0056b3;
 }
+
+/* Light Green for Correct */
+.lightGreenButton {
+  background-color: #00C853; /* You can replace this color with your preferred shade of green */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.lightGreenButton:hover {
+  background-color: #007A33; /* A slightly darker shade for hover effect */
+}
+
+/* Light Red for Wrong */
+.lightRedButton {
+  background-color: #FF5252; /* You can replace this color with your preferred shade of red */
+  opacity: 0.3  ;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.lightRedButton:hover {
+  background-color: #D50000; /* A slightly darker shade for hover effect */
+}
