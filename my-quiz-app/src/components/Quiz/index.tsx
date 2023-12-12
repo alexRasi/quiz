@@ -137,7 +137,7 @@ const Quiz = () => {
     console.log(questions[questionIndex]);
   }
 
-  const a = (
+  const quiz = (
     <div className={styles.quizContainer} onClick={() => {
       if(isWaitingState) {
         setQuestionIndex(questionIndex + 1);
@@ -147,11 +147,12 @@ const Quiz = () => {
 
     }}>
       <div className={styles.timer}>
-        <Timer
+       { time !== 0 && <Timer
           onFinished={handleOnFinished}
           time={time}
           timerState={timerState}
-        />
+        />}
+        { time === 0 && <h1>Time's up!</h1>}
       </div>
       {/* add a restart icon  */}
       <div className={styles.restart}>
@@ -174,9 +175,9 @@ const Quiz = () => {
       </div>
 
       <div className={styles.score}>
-        <h3>Score: {correctAnswers}</h3>
-        <h3>Tries: {questionIndex}</h3>
-        <h3>Highscore: {getHighScore()}</h3>
+        <h4>Score: {correctAnswers}</h4>
+        <h4>Tries: {questionIndex}</h4>
+        <h4>Highscore: {getHighScore()}</h4>
       </div>
       <div>
         {questions && (
@@ -209,37 +210,7 @@ const Quiz = () => {
       </div>
     </div>
   );
-  return a;
-
-  return (
-    <div className={styles.quizContainer}>
-      <Timer
-        onFinished={handleOnFinished}
-        time={time}
-        timerState={timerState}
-      />
-      <div className={styles.score}>
-        <h1>Score: {correctAnswers}</h1>
-      </div>
-      <div className={styles.content}>
-        {questions && (
-          <div>
-            <h1>{questions[questionIndex].question}</h1>
-            {questions[questionIndex].answers.map((answer, index) => (
-              <h2
-                key={index}
-                onClick={() => {
-                  handleAnswerClicked(answer);
-                }}
-              >
-                {answer}
-              </h2>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
+  return quiz;
 };
 
 export default Quiz;
