@@ -27,9 +27,36 @@ const Quiz = () => {
   const [correctAnswers, setCorrectAnswers] = useState(0); //
   const [selectedAnswer, setSelectedAnswer] = useState("");
 
+  // get highscore from local storage
+  const getHighScore = () => {
+    const highScore = localStorage.getItem("highScore");
+    if (highScore) {
+      return parseInt(highScore);
+    }
+    return 0;
+  };
+
+  // set highscore to local storage
+  const setHighScore = (score: number) => {
+    localStorage.setItem("highScore", score.toString());
+  };
+
+  // update highscore if needed
+  const checkAndUpdateHighScore = () => {
+    if (correctAnswers > getHighScore()) {
+      setHighScore(correctAnswers);
+    }
+  }
+
   const handleAnswerClicked = (answer: string) => {
     if (!questions || time === 0) return;
     setSelectedAnswer(answer);
+
+    if(questionIndex === questions.length - 1) {
+      checkAndUpdateHighScore();
+      setTime(0);
+      return;
+    }
 
     if (!isWaitingState) {
       setTimerState(TimerState.PAUSED);
@@ -39,6 +66,11 @@ const Quiz = () => {
         setCorrectAnswers(() => correctAnswers + 1);
       }
     } else if (isWaitingState) {
+      if(questionIndex === questions.length - 1) {
+        checkAndUpdateHighScore();
+        setTime(0);
+        return;
+      }
       setQuestionIndex(questionIndex + 1);
       setIsWaitingState(false);
       setTimerState(TimerState.PLAYING);
@@ -144,6 +176,7 @@ const Quiz = () => {
       <div className={styles.score}>
         <h3>Score: {correctAnswers}</h3>
         <h3>Tries: {questionIndex}</h3>
+        <h3>Highscore: {getHighScore()}</h3>
       </div>
       <div>
         {questions && (
