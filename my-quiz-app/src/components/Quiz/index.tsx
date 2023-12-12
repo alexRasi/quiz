@@ -136,7 +136,7 @@ const Quiz = () => {
 
       <div className={styles.score}>
         <h3>Score: {correctAnswers}</h3>
-        <h3>Tries: {questionIndex+1}</h3>
+        <h3>Tries: {questionIndex}</h3>
       </div>
       <div>
         {questions && (
