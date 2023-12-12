@@ -204,8 +204,7 @@ const Quiz = () => {
 
       <div className={styles.score}>
         <h4>Score: {correctAnswers}</h4>
-        <h4>Tries: {questionIndex}</h4>
-        <h4>Highscore: {getHighScore()}</h4>
+        <h4 className={styles.highScore} >Highscore: {getHighScore()}</h4>
         {/* show dots instead of live numbers */}
         {heartsDisplay()}
       </div>

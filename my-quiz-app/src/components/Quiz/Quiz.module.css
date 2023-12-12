@@ -113,3 +113,8 @@
 .timer {
   margin-bottom: 0;
 }
+
+.highScore {
+  font-size: 32px;
+  margin:0;
+}
