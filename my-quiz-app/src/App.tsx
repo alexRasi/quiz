@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import "./fonts.css";
 import Quiz from "./components/Quiz";
+import 'typeface-roboto';
+
 
 function App() {
   const [count, setCount] = useState(0);

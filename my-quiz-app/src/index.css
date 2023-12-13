@@ -17,40 +17,53 @@
   --soft-background: #fafafa; /* Off White */
   --soft-text: #5a5a5a; /* Medium Gray */
   --soft-accent: #ffb74d; /* Soft Orange */
+
+  --primary-text: #333333;
+  --secondary-text: #666666;
+  --background-color:var(--background-color);
+  --calming-blue: #007BFF;
+  --correct-answer-feedback: #4CAF50;
+  --wrong-answer-feedback: #F44336;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--soft-background);
+  /* background-color: var(--soft-background); */
+  background-color: var(--background-color);
   color: var(--professional-text);
+  font-family: 'Roboto', sans-serif;
+}
+
+div {
+  outline: none;
 }
 
 /* Body Text */
-body, p, .body-text {
+/* body, p, .body-text {
   font-family: "JIKOEB-Calibri", sans-serif;
-}
+} */
 
 /* Headings and Titles */
-h1, h2, h3, h4, h5, h6, .heading {
+/* h1, h2, h3, h4, h5, h6, .heading {
   font-family: "JIKOGC-Arial", Arial, sans-serif;
-}
+} */
 
 /* Emphasis or Quotes */
-em, blockquote, .emphasis {
+/* em, blockquote, .emphasis {
   font-family: "JIKOGE-ArialMT", Arial, sans-serif;
-}
+} */
 
 /* Special Elements (Icons, Decorative) */
-.icon, .wingdings {
+/* .icon, .wingdings {
   font-family: "JIKPAD-Wingdings", "Wingdings";
-}
+} */
 
-.special-symbol {
+/* .special-symbol {
   font-family: "JIKPDD-SymbolMT", "SymbolMT";
-}
+} */
 
 /* UI Elements (Buttons, Labels) */
-button, .button, label, .label {
+/* button, .button, label, .label {
   font-family: "JIKPGC-Tahoma", Tahoma, sans-serif;
-}
+} */

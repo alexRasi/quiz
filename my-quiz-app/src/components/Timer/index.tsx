@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import styles from "./Timer.module.css";
 //add a prop to this component which will be a function that toggles the timer play and pause
 //this function will be called when the content is clicked
 
@@ -74,7 +75,7 @@ const Timer: React.FC<TimerProps> = ({
 
   return (
     <div>
-      <h1>{formatCount()}</h1>
+      <h1 className={styles.timerLabel}>{formatCount()}</h1>
     </div>
   );
 };

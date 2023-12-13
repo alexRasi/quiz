@@ -3,6 +3,7 @@ import styles from "./Quiz.module.css";
 import Timer, { TimerState } from "../Timer";
 import clsx from "clsx";
 import { set } from "firebase/database";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 //make a question type with the answers and the correct answer
 export type QuestionResponse = {
@@ -84,22 +85,6 @@ const Quiz = () => {
     } else {
       console.log("wrong");
     }
-
-    // if (time === 0) {
-    //   setTime(20000);
-    //   setTimerState(TimerState.RESTART);
-    //   return;
-    // }
-
-    // if (timerState === TimerState.PAUSED) {
-    //   console.log("play");
-    //   setTimerState(TimerState.PLAYING);
-    // } else if (timerState === TimerState.PLAYING) {
-    //   setTimerState(TimerState.PAUSED);
-    // } else if (timerState === TimerState.RESTART) {
-    //   setTimerState(TimerState.PLAYING);
-    // }
-    // console.log("content clicked");
   };
 
   const handleOnFinished = () => {
@@ -173,38 +158,41 @@ const Quiz = () => {
         }
       }}
     >
-      <div className={styles.timer}>
-        {time !== 0 && (
-          <Timer
-            onFinished={handleOnFinished}
-            time={time}
-            timerState={timerState}
-          />
-        )}
-        {time === 0 && <h1>-</h1>}
+      <div className={styles.header}>
+        <div className={styles.logo}>logo</div>
+        <div className={styles.timer}>
+          {time !== 0 && (
+            <Timer
+              onFinished={handleOnFinished}
+              time={time}
+              timerState={timerState}
+            />
+          )}
+          {time === 0 && <h1>-</h1>}
+        </div>
+        <div className={styles.restartBbutton}>
+          <div
+            onClick={() => {
+              setTime(20000);
+              setCorrectAnswers(0);
+              if (!questions) return;
+              //shuffle questions
+              const shuffledQuestions = questions.sort(
+                () => Math.random() - 0.5
+              );
+              setQuestions(shuffledQuestions);
+              setQuestionIndex(0);
+              setLives(5);
+            }}
+          >
+            {/* <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" /> */}
+            restart
+          </div>
+        </div>
       </div>
-      {/* add a restart icon  */}
-      <div className={styles.restart}>
-        <button
-          onClick={() => {
-            setTime(20000);
-            setTimerState(TimerState.RESTART);
-            setCorrectAnswers(0);
-            if (!questions) return;
-            //shuffle questions
-            const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
-            setQuestions(shuffledQuestions);
-            setQuestionIndex(0);
-            setLives(5);
-          }}
-        >
-          Restart
-        </button>
-      </div>
-
       <div className={styles.score}>
         <h4>Score: {correctAnswers}</h4>
-        <h4 className={styles.highScore} >Highscore: {getHighScore()}</h4>
+        <h4 className={styles.highScore}>Highscore: {getHighScore()}</h4>
         {/* show dots instead of live numbers */}
         {heartsDisplay()}
       </div>
@@ -243,29 +231,3 @@ const Quiz = () => {
 };
 
 export default Quiz;
-
-//based on the question response type give me some mock data below
-const mockQuestionResponse: QuestionResponse = {
-  questions: [
-    {
-      question: "What is the capital of France?",
-      answers: ["Paris", "Berlin", "Rome", "London"],
-      correctAnswer: "Paris",
-    },
-    {
-      question: "Who is CEO of Tesla?",
-      answers: ["Jeff Bezos", "Elon Musk", "Bill Gates", "Tony Stark"],
-      correctAnswer: "Elon Musk",
-    },
-    {
-      question: "The iPhone was created by which company?",
-      answers: ["Apple", "Intel", "Amazon", "Microsoft"],
-      correctAnswer: "Apple",
-    },
-    {
-      question: "How many Harry Potter books are there?",
-      answers: ["1", "4", "6", "7"],
-      correctAnswer: "7",
-    },
-  ],
-};
