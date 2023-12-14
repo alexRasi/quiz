@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import styles from "./Quiz.module.css";
 import Timer, { TimerState } from "../Timer";
 import clsx from "clsx";
+import ReCAPTCHA from "react-google-recaptcha";
+
 import { set } from "firebase/database";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -36,6 +38,10 @@ const Quiz = () => {
     }
     return 0;
   };
+  
+  const recaptchaOnChange = (value: any) => {
+    console.log("Captcha value:", value);
+  }
 
   // set highscore to local storage
   const setHighScore = (score: number) => {
@@ -170,24 +176,31 @@ const Quiz = () => {
           )}
           {time === 0 && <h1>-</h1>}
         </div>
-        <div className={styles.restartBbutton}>
-          <div
-            onClick={() => {
-              setTime(20000);
-              setCorrectAnswers(0);
-              if (!questions) return;
-              //shuffle questions
-              const shuffledQuestions = questions.sort(
-                () => Math.random() - 0.5
-              );
-              setQuestions(shuffledQuestions);
-              setQuestionIndex(0);
-              setLives(5);
-            }}
-          >
-            {/* <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" /> */}
-            restart
-          </div>
+        <div
+          className={styles.restartBbutton}
+          onClick={(event) => {
+            console.log('restart')
+            event.stopPropagation();
+
+            // setTimerState(TimerState.PAUSED);
+            setIsWaitingState(false);
+            setTimerState(TimerState.PAUSED)
+            setTimerState(TimerState.RESTART);
+
+            
+            setTime(20000);
+            setCorrectAnswers(0);
+            if (!questions) return;
+            //shuffle questions
+            const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+            setQuestions(shuffledQuestions);
+            setQuestionIndex(0);
+            setLives(5);
+          }}
+        >
+          {/* <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" /> */}
+          {/* <FontAwesomeIcon icon="redo-alt" /> */}
+          restart
         </div>
       </div>
       <div className={styles.score}>
@@ -225,6 +238,7 @@ const Quiz = () => {
           </div>
         )}
       </div>
+      <ReCAPTCHA sitekey="6LfDXzApAAAAAL5YiBJdosUOLcdPOqgWhJP-E8Gq" onChange={recaptchaOnChange}/>
     </div>
   );
   return quiz;
