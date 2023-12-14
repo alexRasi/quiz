@@ -238,7 +238,7 @@ const Quiz = () => {
           </div>
         )}
       </div>
-      <ReCAPTCHA sitekey="6LfDXzApAAAAAL5YiBJdosUOLcdPOqgWhJP-E8Gq" onChange={recaptchaOnChange}/>
+      {/* <ReCAPTCHA sitekey="6LfDXzApAAAAAL5YiBJdosUOLcdPOqgWhJP-E8Gq" onChange={recaptchaOnChange}/> */}
     </div>
   );
   return quiz;
